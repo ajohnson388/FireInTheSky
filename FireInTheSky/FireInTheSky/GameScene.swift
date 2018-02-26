@@ -11,17 +11,7 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    enum Direction: Int {
-        case left = -1
-        case right = 1
-        
-        var imageName: String {
-            switch self {
-            case .left: return "player_left"
-            case .right: return "player_right"
-            }
-        }
-    }
+
     
     typealias FireDrop = (droplet: SKSpriteNode, shadow: SKSpriteNode)
     
@@ -91,11 +81,11 @@ class GameScene: SKScene {
     
     @objc func didTap(_ sender: UITapGestureRecognizer) {
         let direction = (player.physicsBody?.velocity.dx ?? 0) > 0
-            ? Direction.left : .right
+            ? PlayerDirection.left : .right
         move(inDirection: direction)
     }
     
-    func move(inDirection direction: Direction) {
+    func move(inDirection direction: PlayerDirection) {
         let velocity = CGVector(dx: 100 * direction.rawValue, dy: 0)
         player.physicsBody?.velocity = velocity
         player.texture = SKTexture(imageNamed: direction.imageName)
