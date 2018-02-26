@@ -13,7 +13,7 @@ class GameScene: SKScene {
     
     // MARK: - Properties
     
-    private let fireDropPeriod: TimeInterval = 1e5
+    private let fireDropPeriod: TimeInterval = 1e4
     private var fireDropCounter: TimeInterval = 0
     
     private var fireDrops = [FireDrop]()
@@ -144,8 +144,8 @@ private extension GameScene {
 extension GameScene {
     
     @objc func didTap(_ sender: UITapGestureRecognizer) {
-        let direction = (player.physicsBody?.velocity.dx ?? 0) > 0
-            ? PlayerDirection.left : .right
+        let velocityX = player.physicsBody?.velocity.dx ?? 0
+        let direction = velocityX > 0 ? PlayerDirection.left : .right
         move(inDirection: direction)
     }
     
