@@ -15,8 +15,6 @@ class GameViewController: UIViewController {
     var scene: GameScene?
 
     override func viewDidLoad() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
-        view.addGestureRecognizer(tapGesture)
         super.viewDidLoad()
         guard let view = self.view as? SKView else {
             return
@@ -27,10 +25,5 @@ class GameViewController: UIViewController {
         view.showsFPS = true
         view.showsNodeCount = true
         view.presentScene(scene!)
-    }
-    
-    @objc func didTap(_ sender: UITapGestureRecognizer) {
-        let loc = sender.location(in: view)
-        loc.x < view.frame.midX ? scene?.move(.left) : scene?.move(.right)
     }
 }

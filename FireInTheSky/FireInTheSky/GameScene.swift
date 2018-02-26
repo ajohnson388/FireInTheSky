@@ -12,7 +12,7 @@ import GameplayKit
 class GameScene: SKScene {
     
     enum PhysicsBitMask: UInt32 {
-        case none, ground, player, fire, all
+        case none = 0, ground, player, fire, shadow, all
     }
     
     enum Direction: Int {
@@ -27,6 +27,11 @@ class GameScene: SKScene {
         }
     }
     
+    typealias FireDrop = (droplet: SKSpriteNode, shadow: SKSpriteNode)
+    
+    var fireDrops = [FireDrop]()
+    
+    let moveGesture = UITapGestureRecognizer(target: nil, action: nil)
     var deltaClock: TimeInterval = 0
     
     var ground = SKSpriteNode()
@@ -35,10 +40,12 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
         // Setup view
+        moveGesture.addTarget(self, action: #selector(didTap(_:)))
+        view.addGestureRecognizer(moveGesture)
         setupBackground()
         setupGround()
         setupPlayer()
-        move(.left)
+        move(inDirection: .left)
     }
     
     func setupWorldPhysics() {
@@ -86,7 +93,13 @@ class GameScene: SKScene {
         addChild(player)
     }
     
-    func move(_ direction: Direction) {
+    @objc func didTap(_ sender: UITapGestureRecognizer) {
+        let direction = (player.physicsBody?.velocity.dx ?? 0) > 0
+            ? Direction.left : .right
+        move(inDirection: direction)
+    }
+    
+    func move(inDirection direction: Direction) {
         let velocity = CGVector(dx: 100 * direction.rawValue, dy: 0)
         player.physicsBody?.velocity = velocity
         player.texture = SKTexture(imageNamed: direction.imageName)
@@ -94,6 +107,7 @@ class GameScene: SKScene {
     
     
     let fireTexture = SKTexture(imageNamed: "fire")
+    let fireShadowTexture = SKTexture(imageNamed: "fire_shadow")
     
     func addFireDrop(at x: CGFloat) {
         let size = CGSize(width: 10, height: 10)
@@ -106,6 +120,27 @@ class GameScene: SKScene {
         fireDrop.physicsBody?.categoryBitMask = PhysicsBitMask.fire.rawValue
         fireDrop.physicsBody?.collisionBitMask = PhysicsBitMask.none.rawValue
         addChild(fireDrop)
+        if ground.frame.contains(CGPoint(x: x, y: ground.frame.midY)) {
+            let shadow = makeFireShadow(at: x)
+            addChild(shadow)
+            let drops = FireDrop(droplet: fireDrop, shadow: shadow)
+            fireDrops.append(drops)
+        }
+    }
+    
+    func makeFireShadow(at x: CGFloat) -> SKSpriteNode {
+        let size = CGSize(width: 10, height: 10)
+        let position = CGPoint(x: x, y: frame.size.height/2)
+        let fireDrop = SKSpriteNode(texture: fireShadowTexture, color: .red, size: size)
+        fireDrop.zPosition = 10
+        fireDrop.position = position
+        fireDrop.physicsBody = SKPhysicsBody(rectangleOf: size)
+        fireDrop.physicsBody?.affectedByGravity = true
+        fireDrop.physicsBody?.isDynamic = false
+        fireDrop.physicsBody?.contactTestBitMask = PhysicsBitMask.none.rawValue
+        fireDrop.physicsBody?.categoryBitMask = PhysicsBitMask.shadow.rawValue
+        fireDrop.physicsBody?.collisionBitMask = PhysicsBitMask.none.rawValue
+        return fireDrop
     }
     
     
@@ -116,5 +151,24 @@ class GameScene: SKScene {
             addFireDrop(at: CGFloat.init(randomX))
         }
         deltaClock += currentTime
+    }
+    
+    override func didSimulatePhysics() {
+        let fireDroplets = fireDrops
+        let range = 0..<fireDroplets.count
+        for i in range {
+            let drops = fireDroplets[i]
+            let refY = ground.frame.maxY + drops.droplet.size.height + 30
+            let currentY = drops.droplet.position.y
+            let deltaY = currentY - refY
+            print(deltaY)
+            if deltaY > 0 {
+                drops.shadow.size.width = deltaY * 0.2
+            } else {
+                drops.droplet.removeFromParent()
+                drops.shadow.removeFromParent()
+                fireDrops.remove(at: i)
+            }
+        }
     }
 }
