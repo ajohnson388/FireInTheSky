@@ -52,6 +52,25 @@ class GameScene: SKScene {
 }
 
 
+// MARK: - Contact Delegate
+
+extension GameScene: SKPhysicsContactDelegate {
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        if hasContact(contact, with: .fire, .player) {
+            // TODO: End game and animate death
+        }
+    }
+    
+    func hasContact(_ contact: SKPhysicsContact, with first: PhysicsBitMask, _ second: PhysicsBitMask) -> Bool {
+        return (contact.bodyA.categoryBitMask == first.rawValue
+            && contact.bodyB.categoryBitMask == second.rawValue)
+            || (contact.bodyA.categoryBitMask == second.rawValue
+                && contact.bodyB.categoryBitMask == first.rawValue)
+    }
+}
+
+
 // MARK: - Fire Drops
 
 private extension GameScene {
@@ -142,8 +161,9 @@ extension GameScene {
 
 private extension GameScene {
  
-    func setupWorldPhysics() {
+    func setupPhysicsWorld() {
         physicsWorld.gravity = CGVector(dx: 0, dy: -2.9)
+        physicsWorld.contactDelegate = self
     }
     
     func setupBackground() {
