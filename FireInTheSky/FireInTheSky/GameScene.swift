@@ -13,11 +13,9 @@ class GameScene: SKScene {
     
     // MARK: - Properties
     
-    typealias FireDrop = (droplet: SKSpriteNode, shadow: SKSpriteNode)
-    
-    var fireDrops = [FireDrop]()
     var deltaClock: TimeInterval = 0
     
+    var fireDrops = [FireDrop]()
     var ground = SKSpriteNode()
     var player = SKSpriteNode()
     
@@ -48,21 +46,25 @@ class GameScene: SKScene {
     }
     
     override func didSimulatePhysics() {
-        let fireDroplets = fireDrops
-        let range = 0..<fireDroplets.count
-        for i in range {
-            let drops = fireDroplets[i]
-            let refY = ground.frame.maxY + drops.droplet.size.height + 30
-            let currentY = drops.droplet.position.y
-            let deltaY = currentY - refY
-            print(deltaY)
-            if deltaY > 0 {
-                drops.shadow.size.width = deltaY * 0.2
-            } else {
-                drops.droplet.removeFromParent()
-                drops.shadow.removeFromParent()
-                fireDrops.remove(at: i)
+        let fireDrops = self.fireDrops
+        fireDrops.forEach(updateFireDrop)
+    }
+    
+    func updateFireDrop(_ fireDrop: FireDrop) {
+        let dropletY = fireDrop.droplet.position.y
+        let groundDeltaY = dropletY - (ground.frame.maxY + fireDrop.droplet.size.height + 30)
+        let floorDeltaY = dropletY - (-1 * fireDrop.droplet.size.height)
+        let shouldRemoveDrop = fireDrop.shadow == nil
+            ? (floorDeltaY) <= 0
+            : (groundDeltaY) <= 0
+        if shouldRemoveDrop {
+            fireDrop.droplet.removeFromParent()
+            fireDrop.shadow?.removeFromParent()
+            if let index = fireDrops.index(of: fireDrop) {
+                fireDrops.remove(at: index)
             }
+        } else if let shadow = fireDrop.shadow {
+            shadow.size.width = groundDeltaY * 0.2
         }
     }
 }
