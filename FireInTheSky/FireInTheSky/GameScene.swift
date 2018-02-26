@@ -11,10 +11,6 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    enum PhysicsBitMask: UInt32 {
-        case none = 0, ground, player, fire, shadow, all
-    }
-    
     enum Direction: Int {
         case left = -1
         case right = 1
