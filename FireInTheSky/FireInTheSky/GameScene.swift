@@ -11,21 +11,25 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-
+    // MARK: - Properties
     
     typealias FireDrop = (droplet: SKSpriteNode, shadow: SKSpriteNode)
     
     var fireDrops = [FireDrop]()
-    
-    let moveGesture = UITapGestureRecognizer(target: nil, action: nil)
     var deltaClock: TimeInterval = 0
     
     var ground = SKSpriteNode()
     var player = SKSpriteNode()
     
+    let moveGesture = UITapGestureRecognizer(target: nil, action: nil)
+    
+    let fireTexture = SKTexture(imageNamed: "fire")
+    let fireShadowTexture = SKTexture(imageNamed: "fire_shadow")
+    
+    
+    // MARK: - Scene Lifecycle
+    
     override func didMove(to view: SKView) {
-        
-        // Setup view
         moveGesture.addTarget(self, action: #selector(didTap(_:)))
         view.addGestureRecognizer(moveGesture)
         setupBackground()
@@ -34,6 +38,58 @@ class GameScene: SKScene {
         move(inDirection: .left)
     }
     
+    override func update(_ currentTime: TimeInterval) {
+        if (deltaClock > 1e5) {
+            deltaClock = 0
+            let randomX = arc4random_uniform(UInt32.init(frame.size.width))
+            addFireDrop(at: CGFloat.init(randomX))
+        }
+        deltaClock += currentTime
+    }
+    
+    override func didSimulatePhysics() {
+        let fireDroplets = fireDrops
+        let range = 0..<fireDroplets.count
+        for i in range {
+            let drops = fireDroplets[i]
+            let refY = ground.frame.maxY + drops.droplet.size.height + 30
+            let currentY = drops.droplet.position.y
+            let deltaY = currentY - refY
+            print(deltaY)
+            if deltaY > 0 {
+                drops.shadow.size.width = deltaY * 0.2
+            } else {
+                drops.droplet.removeFromParent()
+                drops.shadow.removeFromParent()
+                fireDrops.remove(at: i)
+            }
+        }
+    }
+}
+
+
+// MARK: - Interactions
+
+extension GameScene {
+    
+    @objc func didTap(_ sender: UITapGestureRecognizer) {
+        let direction = (player.physicsBody?.velocity.dx ?? 0) > 0
+            ? PlayerDirection.left : .right
+        move(inDirection: direction)
+    }
+    
+    func move(inDirection direction: PlayerDirection) {
+        let velocity = CGVector(dx: 100 * direction.rawValue, dy: 0)
+        player.physicsBody?.velocity = velocity
+        player.texture = SKTexture(imageNamed: direction.imageName)
+    }
+}
+
+
+// MARK: - Setup
+
+extension GameScene {
+ 
     func setupWorldPhysics() {
         physicsWorld.gravity = CGVector(dx: 0, dy: -2.9)
     }
@@ -78,23 +134,7 @@ class GameScene: SKScene {
         
         addChild(player)
     }
-    
-    @objc func didTap(_ sender: UITapGestureRecognizer) {
-        let direction = (player.physicsBody?.velocity.dx ?? 0) > 0
-            ? PlayerDirection.left : .right
-        move(inDirection: direction)
-    }
-    
-    func move(inDirection direction: PlayerDirection) {
-        let velocity = CGVector(dx: 100 * direction.rawValue, dy: 0)
-        player.physicsBody?.velocity = velocity
-        player.texture = SKTexture(imageNamed: direction.imageName)
-    }
-    
-    
-    let fireTexture = SKTexture(imageNamed: "fire")
-    let fireShadowTexture = SKTexture(imageNamed: "fire_shadow")
-    
+
     func addFireDrop(at x: CGFloat) {
         let size = CGSize(width: 10, height: 10)
         let position = CGPoint(x: x, y: frame.size.height)
@@ -127,34 +167,5 @@ class GameScene: SKScene {
         fireDrop.physicsBody?.categoryBitMask = PhysicsBitMask.shadow.rawValue
         fireDrop.physicsBody?.collisionBitMask = PhysicsBitMask.none.rawValue
         return fireDrop
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        if (deltaClock > 1e5) {
-            deltaClock = 0
-            let randomX = arc4random_uniform(UInt32.init(frame.size.width))
-            addFireDrop(at: CGFloat.init(randomX))
-        }
-        deltaClock += currentTime
-    }
-    
-    override func didSimulatePhysics() {
-        let fireDroplets = fireDrops
-        let range = 0..<fireDroplets.count
-        for i in range {
-            let drops = fireDroplets[i]
-            let refY = ground.frame.maxY + drops.droplet.size.height + 30
-            let currentY = drops.droplet.position.y
-            let deltaY = currentY - refY
-            print(deltaY)
-            if deltaY > 0 {
-                drops.shadow.size.width = deltaY * 0.2
-            } else {
-                drops.droplet.removeFromParent()
-                drops.shadow.removeFromParent()
-                fireDrops.remove(at: i)
-            }
-        }
     }
 }
