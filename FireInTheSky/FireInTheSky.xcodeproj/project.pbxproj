@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		85EE86262044D2CB009A1CF0 /* SpriteFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EE86252044D2CB009A1CF0 /* SpriteFactory.swift */; };
 		85EFCB07204382FB005DBFFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EFCB06204382FB005DBFFD /* AppDelegate.swift */; };
 		85EFCB0D204382FB005DBFFD /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EFCB0C204382FB005DBFFD /* GameScene.swift */; };
 		85EFCB0F204382FB005DBFFD /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EFCB0E204382FB005DBFFD /* GameViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		85EE86252044D2CB009A1CF0 /* SpriteFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteFactory.swift; sourceTree = "<group>"; };
 		85EFCB03204382FB005DBFFD /* FireInTheSky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireInTheSky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85EFCB06204382FB005DBFFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85EFCB0C204382FB005DBFFD /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				85EFCB3C2043B231005DBFFD /* PhysicsBitMask.swift */,
 				85EFCB3E2043B2A6005DBFFD /* PlayerDirection.swift */,
 				85EFCB402043B816005DBFFD /* FireDrop.swift */,
+				85EE86252044D2CB009A1CF0 /* SpriteFactory.swift */,
 			);
 			path = FireInTheSky;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				85EFCB0F204382FB005DBFFD /* GameViewController.swift in Sources */,
 				85EFCB3F2043B2A6005DBFFD /* PlayerDirection.swift in Sources */,
 				85EFCB412043B816005DBFFD /* FireDrop.swift in Sources */,
+				85EE86262044D2CB009A1CF0 /* SpriteFactory.swift in Sources */,
 				85EFCB07204382FB005DBFFD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

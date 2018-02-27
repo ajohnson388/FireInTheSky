@@ -17,8 +17,8 @@ class GameScene: SKScene {
     private var fireDropCounter: TimeInterval = 0
     
     private var fireDrops = [FireDrop]()
-    private var ground = SKSpriteNode()
-    private var player = SKSpriteNode()
+    private var ground: SKSpriteNode!
+    private var player: SKSpriteNode!
     
     private let moveGesture = UITapGestureRecognizer(target: nil, action: nil)
     
@@ -31,9 +31,9 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         moveGesture.addTarget(self, action: #selector(didTap(_:)))
         view.addGestureRecognizer(moveGesture)
-        setupBackground()
-        setupGround()
-        setupPlayer()
+        addBackground()
+        addGround()
+        addPlayer()
         move(inDirection: .left)
     }
     
@@ -106,15 +106,10 @@ private extension GameScene {
     func addFireDrop(at x: CGFloat) {
         let size = CGSize(width: 10, height: 10)
         let position = CGPoint(x: x, y: frame.size.height)
-        let fireDrop = SKSpriteNode(texture: fireTexture, color: .red, size: size)
-        fireDrop.position = position
-        fireDrop.physicsBody = SKPhysicsBody(rectangleOf: size)
-        fireDrop.physicsBody?.affectedByGravity = true
-        fireDrop.physicsBody?.contactTestBitMask = PhysicsBitMask.player.rawValue
-        fireDrop.physicsBody?.categoryBitMask = PhysicsBitMask.fire.rawValue
-        fireDrop.physicsBody?.collisionBitMask = PhysicsBitMask.none.rawValue
+        let fireDrop = SpriteFactory.makeFireDrop(withSize: size, at: position)
         addChild(fireDrop)
-        if ground.frame.contains(CGPoint(x: x, y: ground.frame.midY)) {
+        
+        if groundContains(x: x) {
             let shadow = makeFireShadow(at: x)
             addChild(shadow)
             let drops = FireDrop(droplet: fireDrop, shadow: shadow)
@@ -122,18 +117,15 @@ private extension GameScene {
         }
     }
     
+    func groundContains(x: CGFloat) -> Bool {
+        let testPoint = CGPoint(x: x, y: ground.frame.midY)
+        return ground.frame.contains(testPoint)
+    }
+    
     func makeFireShadow(at x: CGFloat) -> SKSpriteNode {
         let size = CGSize(width: 10, height: 10)
         let position = CGPoint(x: x, y: frame.size.height/2)
-        let fireDrop = SKSpriteNode(texture: fireShadowTexture, color: .red, size: size)
-        fireDrop.zPosition = 10
-        fireDrop.position = position
-        fireDrop.physicsBody = SKPhysicsBody(rectangleOf: size)
-        fireDrop.physicsBody?.affectedByGravity = true
-        fireDrop.physicsBody?.isDynamic = false
-        fireDrop.physicsBody?.contactTestBitMask = PhysicsBitMask.none.rawValue
-        fireDrop.physicsBody?.categoryBitMask = PhysicsBitMask.shadow.rawValue
-        fireDrop.physicsBody?.collisionBitMask = PhysicsBitMask.none.rawValue
+        let fireDrop = SpriteFactory.makeFireDropShadow(withSize: size, at: position)
         return fireDrop
     }
 }
@@ -166,44 +158,25 @@ private extension GameScene {
         physicsWorld.contactDelegate = self
     }
     
-    func setupBackground() {
+    func addBackground() {
         let bg = SKSpriteNode(texture: SKTexture(imageNamed: "bg"), color: .blue, size: frame.size)
         bg.position = CGPoint(x: frame.midX, y: frame.midY)
         bg.zPosition = -3
         addChild(bg)
     }
     
-    func setupGround() {
+    func addGround() {
         let size = CGSize(width: frame.size.width/1.5, height: frame.size.height/2)
         let position = CGPoint(x: frame.size.width/2, y: size.height/2)
-        ground.texture = SKTexture(imageNamed: "ground")
-        ground.size = size
-        ground.position = position
-        ground.color = UIColor.brown
-        
-        ground.physicsBody = SKPhysicsBody(rectangleOf: size)
-        ground.physicsBody?.affectedByGravity = false
-        ground.physicsBody?.isDynamic = false
-        ground.physicsBody?.categoryBitMask = PhysicsBitMask.ground.rawValue
-        ground.physicsBody?.collisionBitMask = PhysicsBitMask.player.rawValue
-        
+        ground = SpriteFactory.makeGround(withSize: size, at: position)
         addChild(ground)
     }
     
-    func setupPlayer() {
+    func addPlayer() {
         let size = CGSize(width: 50, height: 50)
-        let position = CGPoint(x: ground.frame.midX, y: ground.frame.maxY + size.height)
-        player.size = size
-        player.position = position
-        player.color = UIColor.green
-        
-        player.physicsBody = SKPhysicsBody(rectangleOf: size)
-        player.physicsBody?.affectedByGravity = true
-        player.physicsBody?.contactTestBitMask = PhysicsBitMask.fire.rawValue
-        player.physicsBody?.categoryBitMask = PhysicsBitMask.player.rawValue
-        player.physicsBody?.collisionBitMask = PhysicsBitMask.ground.rawValue
-        player.physicsBody?.friction = 0
-        
+        let position = CGPoint(x: ground.frame.midX,
+                                  y: ground.frame.maxY + size.height)
+        player = SpriteFactory.makePlayer(withSize: size, at: position)
         addChild(player)
     }
 }
