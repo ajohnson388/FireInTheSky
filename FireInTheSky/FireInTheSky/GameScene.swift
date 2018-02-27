@@ -13,7 +13,7 @@ class GameScene: SKScene {
     
     // MARK: - Properties
     
-    private let fireDropPeriod: TimeInterval = 1e4
+    private let fireDropPeriod: TimeInterval = 5e4
     private var fireDropCounter: TimeInterval = 0
     
     private var fireDrops = [FireDrop]()
@@ -85,7 +85,9 @@ private extension GameScene {
         if shouldRemoveDrop {
             removeFireDrop(fireDrop)
         } else if let shadow = fireDrop.shadow {
-            shadow.size.width = groundDeltaY * 0.1
+            // Decrease the size of the shadow as it gets closer
+            let scale = groundDeltaY / (frame.size.height - ground.frame.maxY)
+            shadow.xScale = scale
         }
     }
     
@@ -122,9 +124,9 @@ private extension GameScene {
         return ground.frame.contains(testPoint)
     }
     
-    func makeFireShadow(at x: CGFloat) -> SKSpriteNode {
-        let size = CGSize(width: 10, height: 10)
-        let position = CGPoint(x: x, y: frame.size.height/2)
+    func makeFireShadow(at x: CGFloat) -> SKShapeNode {
+        let size = CGSize(width: 24, height: 2)
+        let position = CGPoint(x: x, y: frame.size.height/2 - size.height/2)
         let fireDrop = SpriteFactory.makeFireDropShadow(withSize: size, at: position)
         return fireDrop
     }
@@ -154,7 +156,7 @@ extension GameScene {
 private extension GameScene {
  
     func setupPhysicsWorld() {
-        physicsWorld.gravity = CGVector(dx: 0, dy: -2.9)
+        physicsWorld.gravity = CGVector(dx: 0, dy: -2.0)
         physicsWorld.contactDelegate = self
     }
     

@@ -36,16 +36,18 @@ struct SpriteFactory {
         return sprite
     }
     
-    static func makeFireDropShadow(withSize size: CGSize, at position: CGPoint) -> SKSpriteNode {
-        let sprite = SKSpriteNode(color: .black, size: size)
+    static func makeFireDropShadow(withSize size: CGSize, at position: CGPoint) -> SKShapeNode {
+        let sprite = SKShapeNode(rectOf: size, cornerRadius: 2)
+        sprite.fillColor = UIColor.black
+        sprite.strokeColor = UIColor.black
         sprite.position = position
         sprite.zPosition = 10
-        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
-        sprite.physicsBody?.affectedByGravity = true
-        sprite.physicsBody?.isDynamic = false
-        sprite.physicsBody?.contactTestBitMask = PhysicsBitMask.none.rawValue
-        sprite.physicsBody?.categoryBitMask = PhysicsBitMask.shadow.rawValue
-        sprite.physicsBody?.collisionBitMask = PhysicsBitMask.none.rawValue
+//        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
+//        sprite.physicsBody?.affectedByGravity = true
+//        sprite.physicsBody?.isDynamic = false
+//        sprite.physicsBody?.contactTestBitMask = PhysicsBitMask.none.rawValue
+//        sprite.physicsBody?.categoryBitMask = PhysicsBitMask.shadow.rawValue
+//        sprite.physicsBody?.collisionBitMask = PhysicsBitMask.none.rawValue
         return sprite
     }
     

@@ -12,7 +12,7 @@ import SpriteKit
 struct FireDrop {
     
     let droplet: SKSpriteNode
-    let shadow: SKSpriteNode?
+    let shadow: SKShapeNode?
 }
 
 
