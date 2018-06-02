@@ -9,5 +9,5 @@
 import Foundation
 
 enum PhysicsBitMask: UInt32 {
-    case none, ground, player, fire, shadow, all
+    case none, ground, player, fire, lava, shadow, all
 }

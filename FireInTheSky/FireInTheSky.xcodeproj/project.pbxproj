@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4259F92720C31AC400AB6E0C /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259F92620C31AC400AB6E0C /* RecordManager.swift */; };
+		42A4782F20C1005500870DDE /* SKPhysicsContactDelegate+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A4782E20C1005500870DDE /* SKPhysicsContactDelegate+Helpers.swift */; };
+		42D9DCAA20C091C50099740C /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9DCA920C091C50099740C /* Record.swift */; };
+		42D9DCAC20C095A00099740C /* GameSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9DCAB20C095A00099740C /* GameSceneDelegate.swift */; };
+		42FD9FC820BCEB21008BDFFC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD9FC720BCEB21008BDFFC /* MenuViewController.swift */; };
+		42FFF52F20BC684900BF554C /* FireDrop.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42FFF52E20BC684900BF554C /* FireDrop.sks */; };
+		85725C3D204C5C69003B6887 /* GameConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85725C3C204C5C69003B6887 /* GameConfig.swift */; };
+		85E02FB02057730F00F34546 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E02FAF2057730F00F34546 /* Button.swift */; };
 		85EE86262044D2CB009A1CF0 /* SpriteFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EE86252044D2CB009A1CF0 /* SpriteFactory.swift */; };
 		85EFCB07204382FB005DBFFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EFCB06204382FB005DBFFD /* AppDelegate.swift */; };
 		85EFCB0D204382FB005DBFFD /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EFCB0C204382FB005DBFFD /* GameScene.swift */; };
@@ -39,6 +47,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4259F92620C31AC400AB6E0C /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
+		42A4782E20C1005500870DDE /* SKPhysicsContactDelegate+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKPhysicsContactDelegate+Helpers.swift"; sourceTree = "<group>"; };
+		42D9DCA920C091C50099740C /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		42D9DCAB20C095A00099740C /* GameSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneDelegate.swift; sourceTree = "<group>"; };
+		42FD9FC720BCEB21008BDFFC /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		42FFF52E20BC684900BF554C /* FireDrop.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireDrop.sks; sourceTree = "<group>"; };
+		85725C3C204C5C69003B6887 /* GameConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConfig.swift; sourceTree = "<group>"; };
+		85E02FAF2057730F00F34546 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		85EE86252044D2CB009A1CF0 /* SpriteFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteFactory.swift; sourceTree = "<group>"; };
 		85EFCB03204382FB005DBFFD /* FireInTheSky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireInTheSky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85EFCB06204382FB005DBFFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +100,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4259F92020C2152200AB6E0C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				85EFCB15204382FB005DBFFD /* LaunchScreen.storyboard */,
+				85EFCB3A2043854F005DBFFD /* GameViewController.storyboard */,
+				85EFCB0E204382FB005DBFFD /* GameViewController.swift */,
+				42FD9FC720BCEB21008BDFFC /* MenuViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		4259F92120C2152700AB6E0C /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				42D9DCAB20C095A00099740C /* GameSceneDelegate.swift */,
+				85725C3C204C5C69003B6887 /* GameConfig.swift */,
+				85EFCB3C2043B231005DBFFD /* PhysicsBitMask.swift */,
+				85EFCB0C204382FB005DBFFD /* GameScene.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		4259F92320C2154C00AB6E0C /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				42FFF52E20BC684900BF554C /* FireDrop.sks */,
+				85E02FAF2057730F00F34546 /* Button.swift */,
+				85EFCB402043B816005DBFFD /* FireDrop.swift */,
+				85EE86252044D2CB009A1CF0 /* SpriteFactory.swift */,
+			);
+			path = Sprites;
+			sourceTree = "<group>";
+		};
+		4259F92420C215FF00AB6E0C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				85EFCB3E2043B2A6005DBFFD /* PlayerDirection.swift */,
+				42D9DCA920C091C50099740C /* Record.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4259F92520C2161D00AB6E0C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				42A4782E20C1005500870DDE /* SKPhysicsContactDelegate+Helpers.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		85EFCAFA204382FB005DBFFD = {
 			isa = PBXGroup;
 			children = (
@@ -107,17 +173,15 @@
 		85EFCB05204382FB005DBFFD /* FireInTheSky */ = {
 			isa = PBXGroup;
 			children = (
+				4259F92520C2161D00AB6E0C /* Extension */,
+				4259F92420C215FF00AB6E0C /* Models */,
+				4259F92320C2154C00AB6E0C /* Sprites */,
+				4259F92120C2152700AB6E0C /* Game */,
+				4259F92020C2152200AB6E0C /* UI */,
 				85EFCB06204382FB005DBFFD /* AppDelegate.swift */,
-				85EFCB0C204382FB005DBFFD /* GameScene.swift */,
-				85EFCB0E204382FB005DBFFD /* GameViewController.swift */,
 				85EFCB13204382FB005DBFFD /* Assets.xcassets */,
-				85EFCB15204382FB005DBFFD /* LaunchScreen.storyboard */,
 				85EFCB18204382FB005DBFFD /* Info.plist */,
-				85EFCB3A2043854F005DBFFD /* GameViewController.storyboard */,
-				85EFCB3C2043B231005DBFFD /* PhysicsBitMask.swift */,
-				85EFCB3E2043B2A6005DBFFD /* PlayerDirection.swift */,
-				85EFCB402043B816005DBFFD /* FireDrop.swift */,
-				85EE86252044D2CB009A1CF0 /* SpriteFactory.swift */,
+				4259F92620C31AC400AB6E0C /* RecordManager.swift */,
 			);
 			path = FireInTheSky;
 			sourceTree = "<group>";
@@ -250,6 +314,7 @@
 				85EFCB3B2043854F005DBFFD /* GameViewController.storyboard in Resources */,
 				85EFCB14204382FB005DBFFD /* Assets.xcassets in Resources */,
 				85EFCB17204382FB005DBFFD /* LaunchScreen.storyboard in Resources */,
+				42FFF52F20BC684900BF554C /* FireDrop.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,10 +341,17 @@
 			files = (
 				85EFCB0D204382FB005DBFFD /* GameScene.swift in Sources */,
 				85EFCB3D2043B231005DBFFD /* PhysicsBitMask.swift in Sources */,
+				42D9DCAA20C091C50099740C /* Record.swift in Sources */,
+				42D9DCAC20C095A00099740C /* GameSceneDelegate.swift in Sources */,
 				85EFCB0F204382FB005DBFFD /* GameViewController.swift in Sources */,
+				85725C3D204C5C69003B6887 /* GameConfig.swift in Sources */,
+				42FD9FC820BCEB21008BDFFC /* MenuViewController.swift in Sources */,
 				85EFCB3F2043B2A6005DBFFD /* PlayerDirection.swift in Sources */,
 				85EFCB412043B816005DBFFD /* FireDrop.swift in Sources */,
 				85EE86262044D2CB009A1CF0 /* SpriteFactory.swift in Sources */,
+				42A4782F20C1005500870DDE /* SKPhysicsContactDelegate+Helpers.swift in Sources */,
+				85E02FB02057730F00F34546 /* Button.swift in Sources */,
+				4259F92720C31AC400AB6E0C /* RecordManager.swift in Sources */,
 				85EFCB07204382FB005DBFFD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,7 +511,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P9K3JNL3SV;
+				DEVELOPMENT_TEAM = 5YPTGTC4JC;
 				INFOPLIST_FILE = FireInTheSky/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -455,7 +527,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P9K3JNL3SV;
+				DEVELOPMENT_TEAM = 5YPTGTC4JC;
 				INFOPLIST_FILE = FireInTheSky/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

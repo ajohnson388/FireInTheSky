@@ -13,41 +13,39 @@ class GameScene: SKScene {
     
     // MARK: - Properties
     
-    private let fireDropPeriod: TimeInterval = 5e4
-    private var fireDropCounter: TimeInterval = 0
-    
-    private var fireDrops = [FireDrop]()
     private var ground: SKSpriteNode!
     private var player: SKSpriteNode!
-    
     private let moveGesture = UITapGestureRecognizer(target: nil, action: nil)
     
-    private let fireTexture = SKTexture(imageNamed: "fire")
-    private let fireShadowTexture = SKTexture(imageNamed: "fire_shadow")
+    private var lastUpdateTime = 0.0
+    private var elapsedTime = 0.0
+    
+    weak var gameSceneDelegate: GameSceneDelegate?
     
     
     // MARK: - Scene Lifecycle
     
     override func didMove(to view: SKView) {
-        moveGesture.addTarget(self, action: #selector(didTap(_:)))
-        view.addGestureRecognizer(moveGesture)
+        // Configure the scene
+        setupPhysicsWorld()
+        setupMoveGesture()
         addBackground()
         addGround()
+        addLava()
         addPlayer()
+        
+        // Start the player moving in a direction
         move(inDirection: .left)
+        
+        // Start droping fireballs
+        makeItRainHell()
     }
     
     override func update(_ currentTime: TimeInterval) {
-        if (fireDropCounter > fireDropPeriod) {
-            fireDropCounter = 0
-            addFireDrop()
+        if lastUpdateTime > 0 {
+            self.elapsedTime += currentTime - lastUpdateTime
         }
-        fireDropCounter += currentTime
-    }
-    
-    override func didSimulatePhysics() {
-        let fireDrops = self.fireDrops
-        fireDrops.forEach(updateFireDrop)
+        lastUpdateTime = currentTime
     }
 }
 
@@ -57,16 +55,18 @@ class GameScene: SKScene {
 extension GameScene: SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
-        if hasContact(contact, with: .fire, .player) {
-            // TODO: End game and animate death
+        if hasContact(contact, between: PhysicsBitMask.player, and: .fire)
+            || hasContact(contact, between: PhysicsBitMask.player, and: .lava) {
+            showMenu()
+        } else if hasContact(contact, between: PhysicsBitMask.fire, and: .ground)
+            || hasContact(contact, between: PhysicsBitMask.fire, and: .lava),
+            let fireDrop = getFireDrop(contact: contact) {
+                removeFireDrop(fireDrop)
         }
     }
     
-    func hasContact(_ contact: SKPhysicsContact, with first: PhysicsBitMask, _ second: PhysicsBitMask) -> Bool {
-        return (contact.bodyA.categoryBitMask == first.rawValue
-            && contact.bodyB.categoryBitMask == second.rawValue)
-            || (contact.bodyA.categoryBitMask == second.rawValue
-                && contact.bodyB.categoryBitMask == first.rawValue)
+    func getFireDrop(contact: SKPhysicsContact) -> FireDrop? {
+        return contact.bodyA.node as? FireDrop ?? contact.bodyB.node as? FireDrop
     }
 }
 
@@ -75,28 +75,12 @@ extension GameScene: SKPhysicsContactDelegate {
 
 private extension GameScene {
     
-    func updateFireDrop(_ fireDrop: FireDrop) {
-        let dropletY = fireDrop.droplet.position.y
-        let groundDeltaY = dropletY - (ground.frame.maxY + fireDrop.droplet.size.height)
-        let floorDeltaY = dropletY - (-1 * fireDrop.droplet.size.height)
-        let shouldRemoveDrop = fireDrop.shadow == nil
-            ? (floorDeltaY) <= 0
-            : (groundDeltaY) <= 0
-        if shouldRemoveDrop {
-            removeFireDrop(fireDrop)
-        } else if let shadow = fireDrop.shadow {
-            // Decrease the size of the shadow as it gets closer
-            let scale = groundDeltaY / (frame.size.height - ground.frame.maxY)
-            shadow.xScale = scale
-        }
-    }
-    
-    func removeFireDrop(_ fireDrop: FireDrop) {
-        fireDrop.droplet.removeFromParent()
-        fireDrop.shadow?.removeFromParent()
-        if let index = fireDrops.index(of: fireDrop) {
-            fireDrops.remove(at: index)
-        }
+    func makeItRainHell() {
+        // TODO: Add progressive logic
+        let wait = SKAction.wait(forDuration: LogicConfiguration.shared.fireDropPeriod)
+        let spitFire = SKAction.run(addFireDrop)
+        let sequence = SKAction.sequence([wait, spitFire])
+        run(SKAction.repeatForever(sequence))
     }
     
     func addFireDrop() {
@@ -110,13 +94,12 @@ private extension GameScene {
         let position = CGPoint(x: x, y: frame.size.height)
         let fireDrop = SpriteFactory.makeFireDrop(withSize: size, at: position)
         addChild(fireDrop)
-        
-        if groundContains(x: x) {
-            let shadow = makeFireShadow(at: x)
-            addChild(shadow)
-            let drops = FireDrop(droplet: fireDrop, shadow: shadow)
-            fireDrops.append(drops)
-        }
+    }
+    
+    func removeFireDrop(_ fireDrop: FireDrop) {
+        fireDrop.children.forEach { $0.removeFromParent() }
+        fireDrop.removeFromParent()
+        fireDrop.shadow?.removeFromParent()
     }
     
     func groundContains(x: CGFloat) -> Bool {
@@ -135,7 +118,7 @@ private extension GameScene {
 
 // MARK: - Interactions
 
-extension GameScene {
+private extension GameScene {
     
     @objc func didTap(_ sender: UITapGestureRecognizer) {
         let velocityX = player.physicsBody?.velocity.dx ?? 0
@@ -143,8 +126,9 @@ extension GameScene {
         move(inDirection: direction)
     }
     
-    private func move(inDirection direction: PlayerDirection) {
-        let velocity = CGVector(dx: 100 * direction.rawValue, dy: 0)
+    func move(inDirection direction: PlayerDirection) {
+        let velocity = CGVector(dx: LogicConfiguration.shared.playerSpeed
+            * CGFloat(direction.rawValue), dy: 0)
         player.physicsBody?.velocity = velocity
         player.texture = SKTexture(imageNamed: direction.imageName)
     }
@@ -154,6 +138,11 @@ extension GameScene {
 // MARK: - Setup
 
 private extension GameScene {
+    
+    func setupMoveGesture() {
+        moveGesture.addTarget(self, action: #selector(didTap(_:)))
+        view?.addGestureRecognizer(moveGesture)
+    }
  
     func setupPhysicsWorld() {
         physicsWorld.gravity = CGVector(dx: 0, dy: -2.0)
@@ -174,11 +163,57 @@ private extension GameScene {
         addChild(ground)
     }
     
+    func addLava() {
+        let lavaSize = CGSize(width: frame.size.width * 2, height: 1)
+        let lavaPosition = CGPoint(x: 0, y: -1)
+        let lava = SpriteFactory.makeLava(withSize: lavaSize, at: lavaPosition)
+        addChild(lava)
+    }
+    
     func addPlayer() {
         let size = CGSize(width: 50, height: 50)
         let position = CGPoint(x: ground.frame.midX,
-                                  y: ground.frame.maxY + size.height)
+                               y: ground.frame.maxY + size.height)
         player = SpriteFactory.makePlayer(withSize: size, at: position)
         addChild(player)
     }
 }
+
+
+// MARK: - Menu
+
+extension GameScene {
+    
+    func stopScene() {
+        moveGesture.isEnabled = false
+        isPaused = true
+    }
+    
+    func restartScene() {
+        moveGesture.isEnabled = true
+        isPaused = false
+    }
+    
+    func showMenu() {
+        guard let delegate = gameSceneDelegate else {
+            // TODO: Handle error
+            return
+        }
+        stopScene()
+        
+        // Set the record
+        if RecordManager.shared.shouldSetRecord(score: elapsedTime) {
+            // TODO: Prompt name entry
+            let record = Record(name: nil, score: elapsedTime)
+            RecordManager.shared.setRecord(record: record)
+        }
+        
+        delegate.openGameMenu { [weak self] in
+            self?.restartScene()
+        }
+    }
+}
+
+
+
+
