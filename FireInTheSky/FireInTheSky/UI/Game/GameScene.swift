@@ -27,6 +27,7 @@ final class GameScene: SKScene {
         let button = Button(texture: texture, color: .black, size: size)
         button.zPosition = Layer.menu.rawValue
         button.onButtonTapped = { [weak self] in
+            self?.playFeedback()
             self?.startGame()
             button.removeFromParent()
         }
