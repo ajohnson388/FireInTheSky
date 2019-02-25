@@ -16,8 +16,9 @@
 		4234A6E7213C807C00C193B3 /* SpitFire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4234A6E6213C807C00C193B3 /* SpitFire.swift */; };
 		4234A6EB213CA6F600C193B3 /* RecyclingBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4234A6EA213CA6F600C193B3 /* RecyclingBin.swift */; };
 		4259F92720C31AC400AB6E0C /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259F92620C31AC400AB6E0C /* RecordManager.swift */; };
+		42951F95222455C7003B617E /* Codable+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42951F94222455C7003B617E /* Codable+Conversion.swift */; };
+		42951F97222455DC003B617E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42951F96222455DC003B617E /* Logger.swift */; };
 		42A4782F20C1005500870DDE /* SKPhysicsContactDelegate+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A4782E20C1005500870DDE /* SKPhysicsContactDelegate+Helpers.swift */; };
-		42B00BFB20E0218B007AB99A /* JsonConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B00BFA20E0218B007AB99A /* JsonConvertible.swift */; };
 		42B00BFF20E024B5007AB99A /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B00BFE20E024B5007AB99A /* Node.swift */; };
 		42D9DCAA20C091C50099740C /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9DCA920C091C50099740C /* Record.swift */; };
 		42D9DCAC20C095A00099740C /* GameSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9DCAB20C095A00099740C /* GameSceneDelegate.swift */; };
@@ -63,8 +64,9 @@
 		4234A6E6213C807C00C193B3 /* SpitFire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpitFire.swift; sourceTree = "<group>"; };
 		4234A6EA213CA6F600C193B3 /* RecyclingBin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecyclingBin.swift; sourceTree = "<group>"; };
 		4259F92620C31AC400AB6E0C /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
+		42951F94222455C7003B617E /* Codable+Conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Conversion.swift"; sourceTree = "<group>"; };
+		42951F96222455DC003B617E /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		42A4782E20C1005500870DDE /* SKPhysicsContactDelegate+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKPhysicsContactDelegate+Helpers.swift"; sourceTree = "<group>"; };
-		42B00BFA20E0218B007AB99A /* JsonConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonConvertible.swift; sourceTree = "<group>"; };
 		42B00BFE20E024B5007AB99A /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		42D9DCA920C091C50099740C /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		42D9DCAB20C095A00099740C /* GameSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				42A4782E20C1005500870DDE /* SKPhysicsContactDelegate+Helpers.swift */,
+				42951F94222455C7003B617E /* Codable+Conversion.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -193,7 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				4259F92520C2161D00AB6E0C /* Extension */,
-				42B00BFA20E0218B007AB99A /* JsonConvertible.swift */,
+				42951F96222455DC003B617E /* Logger.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -393,13 +396,14 @@
 				4234A6DF213C708900C193B3 /* GameSceneActionFactory.swift in Sources */,
 				4234A6EB213CA6F600C193B3 /* RecyclingBin.swift in Sources */,
 				85725C3D204C5C69003B6887 /* GameConfig.swift in Sources */,
+				42951F97222455DC003B617E /* Logger.swift in Sources */,
 				42DC35AE221C6572001FF19E /* Button.swift in Sources */,
 				42B00BFF20E024B5007AB99A /* Node.swift in Sources */,
-				42B00BFB20E0218B007AB99A /* JsonConvertible.swift in Sources */,
 				4215F1142145BDD200838639 /* HitPoint.swift in Sources */,
 				85EE86262044D2CB009A1CF0 /* SpriteFactory.swift in Sources */,
 				42A4782F20C1005500870DDE /* SKPhysicsContactDelegate+Helpers.swift in Sources */,
 				4259F92720C31AC400AB6E0C /* RecordManager.swift in Sources */,
+				42951F95222455C7003B617E /* Codable+Conversion.swift in Sources */,
 				4215F1122145BDA400838639 /* StatusBar.swift in Sources */,
 				4234A6E7213C807C00C193B3 /* SpitFire.swift in Sources */,
 				4234A6E5213C7E1B00C193B3 /* Player.swift in Sources */,

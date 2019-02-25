@@ -232,7 +232,7 @@ private extension GameScene {
         if RecordManager.shared.shouldSetRecord(score: clock.elapsedTime) {
             // TODO: Prompt name entry
             let record = Record(name: nil, score: clock.elapsedTime)
-            RecordManager.shared.setRecord(record: record)
+            RecordManager.shared.highScore = record
         }
         
         addStartButtonIfNeeded()
@@ -364,7 +364,7 @@ private extension GameScene {
     }
     
     func addHighScoreLabelIfNeeded() {
-        guard let highScore = RecordManager.shared.getRecords().first?.score, highScore > 0,
+        guard let highScore = RecordManager.shared.highScore?.score, highScore > 0,
             highScoreLabel.parent == nil else {
             return
         }

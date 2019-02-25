@@ -30,45 +30,21 @@ final class RecordManager {
     /**
         Returns the saved list of records in descending order of highest score.
      */
-    func getRecords() -> [Record] {
-        guard let records = UserDefaults.standard.array(forKey: recordsKey) as? [[String: Any]] else {
-            return []
+    var highScore: Record? {
+        get {
+            let data = UserDefaults.standard.data(forKey: recordsKey)
+            return Record.decode(data: data)
         }
-        return records.compactMap {
-            guard let score = $0[Record.Keys.score] as? Double else {
-                return nil
-            }
-            return Record(name: $0[Record.Keys.name] as? String, score: score)
-        }.sorted(by: >)
-    }
-    
-    /**
-        Saves a record to the list of high scores.
-     */
-    func setRecord(record: Record) {
-        var originalRecords = UserDefaults.standard.array(forKey: recordsKey) as? [[String: Any]] ?? []
-        originalRecords.append(record.toDictionary())
-        UserDefaults.standard.setValue(originalRecords, forKey: recordsKey)
-        UserDefaults.standard.synchronize()
-    }
-    
-    func removeRecord(_ record: Record) {
-        var records = getRecords()
-        guard let removableIndex = records.index(where: { record == $0 }) else {
-            return
+        set {
+            UserDefaults.standard.set(newValue?.encode(), forKey: recordsKey)
+            UserDefaults.standard.synchronize()
         }
-        records.remove(at: removableIndex)
-        let newRecords = records.map { $0.toDictionary() }
-        UserDefaults.standard.setValue(newRecords, forKey: recordsKey)
-        UserDefaults.standard.synchronize()
     }
     
     func shouldSetRecord(score: Double) -> Bool {
-        let records = getRecords()
-        guard let beatRecord = records.first(where: { score > $0.score }) else {
-            return records.count < 3
+        guard let highScore = highScore else {
+            return true
         }
-        removeRecord(beatRecord)
-        return true
+        return score > highScore.score
     }
 }
