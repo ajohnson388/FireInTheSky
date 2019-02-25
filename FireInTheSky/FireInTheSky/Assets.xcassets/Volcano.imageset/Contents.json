@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Snowman@1x 2.png",
+      "filename" : "Volcano@1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Snowman@2x 2.png",
+      "filename" : "Volcano@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Snowman@3x 2.png",
+      "filename" : "Volcano@3x.png",
       "scale" : "3x"
     }
   ],
