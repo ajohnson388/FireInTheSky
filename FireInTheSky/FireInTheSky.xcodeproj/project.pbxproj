@@ -22,7 +22,6 @@
 		42D9DCAA20C091C50099740C /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9DCA920C091C50099740C /* Record.swift */; };
 		42D9DCAC20C095A00099740C /* GameSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9DCAB20C095A00099740C /* GameSceneDelegate.swift */; };
 		42DC35AE221C6572001FF19E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DC35AD221C6572001FF19E /* Button.swift */; };
-		42FD9FC820BCEB21008BDFFC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD9FC720BCEB21008BDFFC /* MenuViewController.swift */; };
 		42FFF52F20BC684900BF554C /* FireDrop.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42FFF52E20BC684900BF554C /* FireDrop.sks */; };
 		85725C3D204C5C69003B6887 /* GameConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85725C3C204C5C69003B6887 /* GameConfig.swift */; };
 		85EE86262044D2CB009A1CF0 /* SpriteFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EE86252044D2CB009A1CF0 /* SpriteFactory.swift */; };
@@ -70,7 +69,6 @@
 		42D9DCA920C091C50099740C /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		42D9DCAB20C095A00099740C /* GameSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneDelegate.swift; sourceTree = "<group>"; };
 		42DC35AD221C6572001FF19E /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
-		42FD9FC720BCEB21008BDFFC /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		42FFF52E20BC684900BF554C /* FireDrop.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireDrop.sks; sourceTree = "<group>"; };
 		85725C3C204C5C69003B6887 /* GameConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConfig.swift; sourceTree = "<group>"; };
 		85EE86252044D2CB009A1CF0 /* SpriteFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteFactory.swift; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 			isa = PBXGroup;
 			children = (
 				85EFCB06204382FB005DBFFD /* AppDelegate.swift */,
-				42C889F4214429D20034DF6A /* Menu */,
 				4259F92120C2152700AB6E0C /* Game */,
 				85EFCB15204382FB005DBFFD /* LaunchScreen.storyboard */,
 				85EFCB3A2043854F005DBFFD /* GameViewController.storyboard */,
@@ -192,14 +189,6 @@
 			path = Database;
 			sourceTree = "<group>";
 		};
-		42C889F4214429D20034DF6A /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				42FD9FC720BCEB21008BDFFC /* MenuViewController.swift */,
-			);
-			path = Menu;
-			sourceTree = "<group>";
-		};
 		42C889F5214429F00034DF6A /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,13 +196,6 @@
 				42B00BFA20E0218B007AB99A /* JsonConvertible.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		42C889F621442A2D0034DF6A /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		85EFCAFA204382FB005DBFFD = {
@@ -241,7 +223,6 @@
 			children = (
 				85EFCB13204382FB005DBFFD /* Assets.xcassets */,
 				85EFCB18204382FB005DBFFD /* Info.plist */,
-				42C889F621442A2D0034DF6A /* Resources */,
 				42C889F5214429F00034DF6A /* Common */,
 				42C889F12144296B0034DF6A /* Data */,
 				4259F92320C2154C00AB6E0C /* Sprites */,
@@ -416,7 +397,6 @@
 				42B00BFF20E024B5007AB99A /* Node.swift in Sources */,
 				42B00BFB20E0218B007AB99A /* JsonConvertible.swift in Sources */,
 				4215F1142145BDD200838639 /* HitPoint.swift in Sources */,
-				42FD9FC820BCEB21008BDFFC /* MenuViewController.swift in Sources */,
 				85EE86262044D2CB009A1CF0 /* SpriteFactory.swift in Sources */,
 				42A4782F20C1005500870DDE /* SKPhysicsContactDelegate+Helpers.swift in Sources */,
 				4259F92720C31AC400AB6E0C /* RecordManager.swift in Sources */,

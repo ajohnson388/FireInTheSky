@@ -43,18 +43,10 @@ final class GameScene: SKScene {
     lazy var actionFactory = GameSceneActionFactory()
     lazy var physicsHandler = GameScenePhysicsHandler(delegate: self)
     
-    private static var isNewGame: Bool = true
-    
-    /**
-        Delegate that is repsonbile for communication between the scene and the containing UIView.
-     */
-    unowned let gameSceneDelegate: GameSceneDelegate
-    
     
     // MARK: - Lifecycle
     
-    init(size: CGSize, gameSceneDelegate: GameSceneDelegate) {
-        self.gameSceneDelegate = gameSceneDelegate
+    override init(size: CGSize) {
         super.init(size: size)
         initGame()
     }
@@ -227,25 +219,6 @@ private extension GameScene {
         self.isPaused = true
         player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         self.showMenu()
-    }
-    
-    // MARK: - Setup
-    
-
-    /**
-        Triggers the movement of the game clock from either the resting top position while
-        the game is in action, or at the bottom of the menu view when it presented.
-     
-        - Parameters:
-            - position: Indicates the position the timer should gravitate towards. If the timer is
-                        already in the specified position, the function calls back immediately.
-            - callback: A block that is called when the animation is finished.
-     */
-    private func moveTimer(to position: TimerPosition, callback: @escaping () -> Void) {
-        let displacement = clock.position.y + CGFloat(170 * position.rawValue)
-        clock.position = CGPoint(x: clock.position.x, y: clock.position.y + displacement)
-//        let move = SKAction.moveTo(y: displacement, duration: 0.1)
-//        clock.run(move, completion: callback)
     }
     
     
