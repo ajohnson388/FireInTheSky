@@ -1,5 +1,7 @@
 # Fire In The Sky
 
+![Fire in the Sky](https://github.com/ajohnson388/fire-in-the-sky/blob/master/images/FireInTheSky-Logo.png)
+
 > Fire In The Sky is an iPhone game where the player must constantly move back and forth and dodge raining fireballs without falling off the platform.
 
 [![Swift Version][swift-image]][swift-url]
@@ -11,9 +13,9 @@ Available for iPhone, Fire In The Sky is a game where the player must constantly
 
 ## Requirements
 
-- iOS 10.0+
-- Swift 4.1
-- Xcode 9.3
+- iOS 11.0+
+- Swift 4.2
+- Xcode 10.1
 
 ## Installation
 
@@ -26,10 +28,6 @@ Run the app using the simulator or install on a physical device by creating an A
 ## Contribute
 
 Open an issue or make a pull request.
-
-## Note
-
-This game is still in alpha and artwork will be replaced before beta release with original textures.
 
 ## Meta
 Andrew Johnson – ajohnson388@gmail.com
