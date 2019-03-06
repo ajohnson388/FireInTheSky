@@ -205,6 +205,7 @@ private extension GameScene {
         // Reset game state
         moveGesture.isEnabled = true
         clock.elapsedTime = 0
+        clock.resetClock()
         
         // Start all initial actions
         isPaused = false
@@ -372,12 +373,12 @@ private extension GameScene {
         let clockText = clockDisplayText(seconds: highScore)
         let options: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.foregroundColor: UIColor.yellow,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40)
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)
         ]
         highScoreLabel.zPosition = Layer.menu.rawValue
         highScoreLabel.attributedText = NSAttributedString(string: clockText, attributes: options)
-        highScoreLabel.position = startButton.position
-        highScoreLabel.position.y += (startButton.size.height + 16)
+        highScoreLabel.position = clock.position
+        highScoreLabel.position.y -= (1.5 * clock.frame.size.height - 16)
         addChild(highScoreLabel)
     }
     
