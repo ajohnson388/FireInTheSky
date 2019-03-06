@@ -7,7 +7,7 @@
 [![Swift Version][swift-image]][swift-url]
 [![License][license-image]][license-url]
 [![Platform][platform-image]][platform-url]
-
+[![Version][version-image]][version-url]
 
 Available for iPhone, Fire In The Sky is a game where the player must constantly move back and forth and dodge raining fireballs without falling off the platform. The game is in the alpha stage and not yet available on the Apple App store. The app is open sourced and is designed to be a completely free app (no strings attached) when its available in the app store.
 
@@ -36,9 +36,11 @@ Distributed under the Apache 2.0 license. See ``LICENSE`` for more information.
 
 [https://github.com/ajohnson388/](https://github.com/ajohnson388/)
 
-[swift-image]:https://img.shields.io/badge/swift-4.1-orange.svg
+[swift-image]:https://img.shields.io/badge/Swift-4.1-orange.svg
 [swift-url]: https://swift.org/
 [license-image]: https://img.shields.io/badge/License-Apache-blue.svg
 [license-url]: LICENSE
-[platform-image]:https://img.shields.io/badge/platform-iOS-green.svg?style=flat
+[platform-image]:https://img.shields.io/badge/Platform-iOS-green.svg?style=flat
 [platform-url]:https://developer.apple.com/
+[version-image]:https://img.shields.io/badge/Version-1.1-purple.svg?style=flat
+[version-url]:https://github.com/ajohnson388/fire-in-the-sky/blob/master/CHANGELOG.md
